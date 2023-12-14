@@ -37,9 +37,28 @@ const Z8080 = {
 };
 
 const Z8080_BUS = {
+    ROM :[],
+    RAM : [],
+    Video_RAM : [],
+    MAR : [],
     read_byte : function(address){},
     read_word : function (address){},
     write_byte : function (address, value){},
     write_word : function (address, value){}
-}
+};
+
+const input_ports = {
+    '0' : Uint8Array(12),
+    '1' : Uint8Array(6),
+    '2' : Uint8Array(0),
+    '3' : Uint8Array(0),
+    shift : function(){}
+};
+
+const output_ports = {
+    '2' : Uint8Array(0),
+    '3' : Uint8Array(0),
+    '5' : Uint8Array(0),
+    '6' : Uint8Array(0)
+};
 
