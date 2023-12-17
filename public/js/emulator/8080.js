@@ -1,4 +1,6 @@
-const Z8080 = {
+import { flashROMBank } from "./helper/load";
+
+export const Z8080 = {
     clock : {
         instruction_execution_time: 0,
         total_cpu_operating_time : 0,
@@ -48,7 +50,7 @@ const Z8080 = {
 
 };
 
-const Z8080_BUS = {
+export const Z8080_BUS = {
     ROMH : Uint8Array(2048),
     ROMG : Uint8Array(2048),
     ROMF : Uint8Array(2048),
@@ -56,6 +58,13 @@ const Z8080_BUS = {
     RAM : Uint8Array(1024),
     Video_RAM : Uint8Array(7168),
     MAR : Uint8Array(1024),
+    load : function(romLocations) {
+        const tempBanks = flashROMBank(romLocations);
+        this.ROMH = tempBanks[0];
+        this.ROMG = tempBanks[1];
+        this.ROMF = tempBanks[2];
+        this.ROME = tempBanks[3];
+    },
     read_byte : function(address){
         switch(address) {
             default:
@@ -82,7 +91,7 @@ const Z8080_BUS = {
     }
 };
 
-const input_ports = {
+export const input_ports = {
     '0' : Uint8Array(1),
     '1' : Uint8Array(1),
     '2' : Uint8Array(1),
@@ -90,7 +99,7 @@ const input_ports = {
     shift : function(hi_value, low_value){}
 };
 
-const output_ports = {
+export const output_ports = {
     '2' : Uint8Array(1),
     '3' : Uint8Array(1),
     '5' : Uint8Array(1),

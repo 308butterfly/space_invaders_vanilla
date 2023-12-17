@@ -1,11 +1,11 @@
-const romLocations = [
+export const ROM_LOCATIONS = [
     './public/assets/roms/space_invader_roms/invaders.h',
     './public/assets/roms/space_invader_roms/invaders.g',
     './public/assets/roms/space_invader_roms/invaders.f',
     './public/assets/roms/space_invader_roms/invaders.e'
   ];
   
-  async function fetchROM(location) {
+  export async function fetchROM(location) {
     try {
       const response = await fetch(location);
       if (!response.ok) {
@@ -18,14 +18,11 @@ const romLocations = [
     }
   }
   
-  async function flashROMBank(romLocations, romBank) {
+  export async function flashROMBank(romLocation ) {
     try {
       const romPartions = await Promise.all(romLocations.map(fetchROM));
   
-      romBank.ROMH.set(romPartions[0]);
-      romBank.ROMG.set(romPartions[1]);
-      romBank.ROMF.set(romPartions[2]);
-      romBank.ROME.set(romPartions[3]);
+      return romPartions;
         
     } catch (error) {
       console.error('Error in flashing ROM bank:', error);
